@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+
+    tools:context="com.codingfy.webviewgeneral.MainActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:background="#070707">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_home_white_48dp"
+            android:onClick="goHome"/>
+
+
+    </LinearLayout>
+
+
+
+    <WebView  xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/webview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:visibility="gone"
+        />
+
+
+
+
+    <!--<android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignBottom="@id/webview"
+        android:layout_marginBottom="5dp"
+        android:layout_marginRight="20dp"
+        android:src="@drawable/" />-->
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        android:id="@+id/showLoadingScreen"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/loading_screen"
+            />
+
+
+    </LinearLayout>
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        android:id="@+id/networkerror"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:gravity="center">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/network_error_text"
+            android:gravity="center"
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reincercati"
+            android:id="@+id/retryConnecting"
+            android:layout_marginTop="15dp"/>
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        android:id="@+id/splashScreen"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:gravity="center">
+
+
+       <ImageView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:src="@mipmap/freepik"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/loading_splash_text"
+            android:layout_gravity="center"
+            android:layout_marginTop="100dp"/>
+
+
+    </LinearLayout>
+
+</LinearLayout>
