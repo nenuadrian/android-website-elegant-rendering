@@ -7,7 +7,7 @@
         sa verificati conexiunea la internet si mai apoi sa apasati pe butonul de mai jos, sau
     sa inchideti si sa redeschideti aplicatia</string>
     <string name="loading_screen"> Please wait, loading your app </string>
-    <string name="url">http://secretrepublic.net</string>
+    <string name="url">http://alpha.secretrepublic.net</string>
     <string name="left_right_nav_enabled">y</string>
     <string name="loading_screen_enabled">y</string>
     <string name="loading_splash_text">Loading..</string>

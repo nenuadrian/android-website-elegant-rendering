@@ -33,25 +33,25 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     WebView myWebView;
-    private ProgressDialog progressBar;
-    static MainActivity theInstance;
+    MainActivity theInstance;
 
+    //Linear Layouts for splash and loading screens
     private LinearLayout loadingScreen;
     private LinearLayout splashScreen;
+    private LinearLayout networkError;
 
-
-
-    /*GCM Not used
+    /* for GCM, not used
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     private static final String TAG = "MainActivity";
-
     private BroadcastReceiver mRegistrationBroadcastReceiver;
     */
 
-
+    /*Variables to detect left, right scroll (go back and go forward */
     private int min_distance = 100;
     private float downX, downY, upX, upY;
 
+    /*This is used so that the loading layout doesn't get on top of the splash screen
+    when the app starts */
     boolean firstLoad = true;
     //int loadingCount = 0;
 
@@ -61,15 +61,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         firstLoad = true;
+        theInstance = this;
 
-        final LinearLayout networkError = (LinearLayout) findViewById(R.id.networkerror);
 
+        networkError = (LinearLayout) findViewById(R.id.networkerror);
         loadingScreen = (LinearLayout) findViewById(R.id.showLoadingScreen);
         splashScreen = (LinearLayout) findViewById(R.id.splashScreen);
 
         splashScreen.setVisibility(View.VISIBLE);
-
-        theInstance = this;
 
 
         /*
@@ -80,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
                     tries to reload, it reloads the same link instead of the homepage
              CURRENTLY NOT USED
          */
-        String linkToGoTo = "noLink";
+        String linkToGoTo;
         Bundle extras = getIntent().getExtras();
         if(extras == null) {
             linkToGoTo= "noLink";
@@ -93,13 +92,15 @@ public class MainActivity extends AppCompatActivity {
         myWebView = (WebView) findViewById(R.id.webview);
         WebSettings webSettings = myWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
+        //Registering JS callback here.
         myWebView.addJavascriptInterface(new WebAppInterface(this), "Android");
 
-
-
+        //To fix layout issues.
         myWebView.getSettings().setLoadWithOverviewMode(true);
         myWebView.getSettings().setUseWideViewPort(true);
 
+
+        //Left, right navigation enabled/disabled.
         if((getResources().getString(R.string.left_right_nav_enabled).equals("y"))){
             myWebView.setOnTouchListener(new View.OnTouchListener() {
                 @Override
@@ -116,7 +117,6 @@ public class MainActivity extends AppCompatActivity {
                             display.getSize(size);
                             int width = size.x;
 
-
                             if(downX < 200 || downX > width-200){
                                 upX = event.getX();
                                 upY = event.getY();
@@ -129,22 +129,16 @@ public class MainActivity extends AppCompatActivity {
                                     if (Math.abs(deltaX) > min_distance) {
                                         // left or right
                                         if (deltaX < 0) {
-                                            Log.d("going", "left to right");
-
                                             if(myWebView.canGoBack()){
                                                 myWebView.goBack();
                                                 Toast.makeText(getApplicationContext(), getResources().getString(R.string.loading_previous), Toast.LENGTH_SHORT).show();
-
                                             }
                                             return true;
                                         }
                                         if (deltaX > 0) {
-                                            Log.d("going", "right to left");
-
                                             if(myWebView.canGoForward()){
                                                 myWebView.goForward();
                                                 Toast.makeText(getApplicationContext(), getResources().getString(R.string.loading_next), Toast.LENGTH_SHORT).show();
-
                                             }
                                             return true;
                                         }
@@ -175,25 +169,19 @@ public class MainActivity extends AppCompatActivity {
                             */
                                 return false;
                             }
-
                         }
                     }
                     return false;
                 }
             });
-
-
         }
 
         myWebView.setWebViewClient(new WebViewClient(){
             boolean ignoreDoneOnce = false;
 
-
+            //This will be called each time a new link is tapped on.
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-
-                Log.d("Should LOAD", url);
                 view.loadUrl(url);
-
 
                 if(firstLoad){
                     myWebView.setVisibility(View.GONE);
@@ -202,7 +190,6 @@ public class MainActivity extends AppCompatActivity {
                     myWebView.setVisibility(View.GONE);
                     loadingScreen.setVisibility(View.VISIBLE);
                 }
-
                 return true;
             }
 
@@ -211,12 +198,6 @@ public class MainActivity extends AppCompatActivity {
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(myWebView, url);
 
-
-
-                //loadingCount++;
-                //System.out.println("LOADED" + loadingCount);
-
-
                 if(ignoreDoneOnce){
                     ignoreDoneOnce = false;
                 }
@@ -224,7 +205,6 @@ public class MainActivity extends AppCompatActivity {
                     view.clearCache(true);
 
                     if(firstLoad){
-                        //if(loadingCount>2){
                         final Handler handler = new Handler();
                         handler.postDelayed(new Runnable() {
                             @Override
@@ -234,27 +214,19 @@ public class MainActivity extends AppCompatActivity {
                                 myWebView.setVisibility(View.VISIBLE);
                             }
                         }, 300);
-
-                        //}
                     } else if(getResources().getString(R.string.loading_screen_enabled).equals("y")) {
                         myWebView.setVisibility(View.VISIBLE);
                         loadingScreen.setVisibility(View.GONE);
 
                     }
-
-
                     networkError.setVisibility(View.GONE);
-                    //fab.setVisibility(View.VISIBLE);
-
-
-
                 }
 
             }
 
+
             @Override
             public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
-                //Toast.makeText(getApplicationContext(), "Oh no! " + description, Toast.LENGTH_SHORT).show();
                 ignoreDoneOnce=true;
 
                 Log.d("errorcode", String.valueOf(errorCode));
@@ -266,10 +238,6 @@ public class MainActivity extends AppCompatActivity {
                 networkError.setVisibility(View.VISIBLE);
 
                 System.out.println("RECEIVED ERROR");
-
-
-                //fab.setVisibility(View.GONE);
-
 
             }
         });
@@ -407,19 +375,11 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            Intent intent = new Intent(getApplicationContext(), SetNotif.class);
-//
-//            startActivity(intent);
-//
-//            return true;
-//        }
-
         return super.onOptionsItemSelected(item);
     }
 
 
+    /*Use this to construct a http request, if communicating to an API for example*/
     public String getQuery(List<AbstractMap.SimpleEntry> params) throws UnsupportedEncodingException
     {
         StringBuilder result = new StringBuilder();
@@ -432,8 +392,8 @@ public class MainActivity extends AppCompatActivity {
             else
                 result.append("&");
 
-            Log.d("sending key", pair.getKey().toString());
-            Log.d("sending value", pair.getValue().toString());
+            //Log.d("sending key", pair.getKey().toString());
+            //Log.d("sending value", pair.getValue().toString());
             result.append(URLEncoder.encode(pair.getKey().toString(), "UTF-8"));
             result.append("=");
             result.append(URLEncoder.encode(pair.getValue().toString(), "UTF-8"));
