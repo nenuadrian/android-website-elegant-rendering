@@ -181,7 +181,7 @@ public class MainActivity extends AppCompatActivity {
 
             //This will be called each time a new link is tapped on.
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                view.loadUrl(url);
+                view.loadUrl(url + "?inapp=true");
 
                 if(firstLoad){
                     myWebView.setVisibility(View.GONE);
