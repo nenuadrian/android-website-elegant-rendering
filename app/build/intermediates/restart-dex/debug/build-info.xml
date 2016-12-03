@@ -1,37 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <instant-run
-    abi="armeabi-v7a,armeabi"
+    abi="x86"
     api-level="22"
-    density="hdpi"
+    density="xxhdpi"
     format="8"
     plugin-version="2.2.1"
-    timestamp="119481858141873"
+    timestamp="35839810703872"
     token="-7416667884779298017"
-    verifier="FULL_BUILD_REQUESTED" >
+    verifier="METHOD_ADDED" >
 
     <task
         name="javac"
-        duration="352" />
+        duration="265" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="157" />
+        duration="130" />
     <task
         name="verifier"
-        duration="54" />
+        duration="31" />
 
     <artifact
-        location="/Users/lorin/AndroidStudioProjects/Webviewgeneral/app/build/outputs/apk/app-debug.apk"
-        type="MAIN" />
+        location="/Users/lorin/AndroidStudioProjects/Webviewgeneral/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_0/classes.dex"
+        type="DEX" />
 
     <build
-        timestamp="119481858141873"
+        timestamp="34785239465215"
         verifier="FULL_BUILD_REQUESTED" >
         <artifact
             location="/Users/lorin/AndroidStudioProjects/Webviewgeneral/app/build/outputs/apk/app-debug.apk"
             type="MAIN" />
+    </build>
+    <build
+        timestamp="35839810703872"
+        verifier="METHOD_ADDED" >
+        <artifact
+            location="/Users/lorin/AndroidStudioProjects/Webviewgeneral/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_0/classes.dex"
+            type="DEX" />
     </build>
 
 </instant-run>

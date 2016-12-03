@@ -10,5 +10,9 @@
     {
         "merged": "/Users/lorin/AndroidStudioProjects/Webviewgeneral/app/build/intermediates/res/merged/debug/mipmap-xxxhdpi/ic_home_white_48dp.png",
         "source": "/Users/lorin/AndroidStudioProjects/Webviewgeneral/app/src/main/res/mipmap-xxxhdpi/ic_home_white_48dp.png"
+    },
+    {
+        "merged": "/Users/lorin/AndroidStudioProjects/Webviewgeneral/app/build/intermediates/res/merged/debug/mipmap-xxxhdpi/logo.png",
+        "source": "/Users/lorin/AndroidStudioProjects/Webviewgeneral/app/src/main/res/mipmap-xxxhdpi/logo.png"
     }
 ]

@@ -1,5 +1,9 @@
 [
     {
+        "merged": "/Users/lorin/AndroidStudioProjects/Webviewgeneral/app/build/intermediates/res/merged/debug/mipmap-xxxhdpi-v4/bg.jpg",
+        "source": "/Users/lorin/AndroidStudioProjects/Webviewgeneral/app/src/main/res/mipmap-xxxhdpi/bg.jpg"
+    },
+    {
         "merged": "/Users/lorin/AndroidStudioProjects/Webviewgeneral/app/build/intermediates/res/merged/debug/mipmap-xxxhdpi-v4/freepik.jpg",
         "source": "/Users/lorin/AndroidStudioProjects/Webviewgeneral/app/src/main/res/mipmap-xxxhdpi/freepik.jpg"
     }

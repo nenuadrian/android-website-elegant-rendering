@@ -3,75 +3,156 @@
 
     <item
         is-multidex="true"
-        jar="/Users/lorin/AndroidStudioProjects/Webviewgeneral/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/23.4.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="22.0.1"
-        sha1="c2c594cace5d83a3227b2b6e658ecbfd586d3ed9">
-        <dex dex="/Users/lorin/AndroidStudioProjects/Webviewgeneral/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-vector-drawable-23.4.0_0dd0809584304eee2bd46b7cbd93bcdfc111e514/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/lorin/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.4.0/support-annotations-23.4.0.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="22.0.1"
-        sha1="ffbe55fdb2bb456b1485831706a9eac3300bb6b8">
-        <dex dex="/Users/lorin/AndroidStudioProjects/Webviewgeneral/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-23.4.0_270ec645d75f80abe265890bf19a4f70775bb6d4/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/lorin/AndroidStudioProjects/Webviewgeneral/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/23.4.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="22.0.1"
-        sha1="de4db3785756bfb0915a9f59a9b3f2fea7407be4">
-        <dex dex="/Users/lorin/AndroidStudioProjects/Webviewgeneral/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-animated-vector-drawable-23.4.0_bd397de6f0852c519c4eea0639ff4a8897eb3649/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/lorin/AndroidStudioProjects/Webviewgeneral/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="22.0.1"
-        sha1="548f06de403a9409f00554b3ee12a9fdea0e236c">
-        <dex dex="/Users/lorin/AndroidStudioProjects/Webviewgeneral/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-23.4.0_92cad5435fb082056b5c28d1f65d9e51cd12c3d8/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/lorin/AndroidStudioProjects/Webviewgeneral/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.4.0/jars/libs/internal_impl-23.4.0.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="22.0.1"
-        sha1="ea3c07504d2c8f4b13aa17c45c1b68ed9c1c3674">
-        <dex dex="/Users/lorin/AndroidStudioProjects/Webviewgeneral/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-23.4.0_3dbcb6b776d4c57d2c96fda44b1654dd79c73caa/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/lorin/AndroidStudioProjects/Webviewgeneral/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.4.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="22.0.1"
-        sha1="67bd36ee9340ec7c254108936ad16b24bed160cc">
-        <dex dex="/Users/lorin/AndroidStudioProjects/Webviewgeneral/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v4-23.4.0_a8cc77b6660051077d64abcbd114b18eabcdc9f5/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="/Users/lorin/AndroidStudioProjects/Webviewgeneral/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
         jumboMode="true"
         optimize="true"
-        revision="22.0.1"
-        sha1="8fe0f1ab2bf67b78faec7ce92ff6886eadf2342b">
+        revision="23.0.2"
+        sha1="249f85968beeb64479966cabbd6fa5353b773f86">
         <dex dex="/Users/lorin/AndroidStudioProjects/Webviewgeneral/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_96b00eb2534ad6939b9b56cb8ae3885684b677a1/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/lorin/AndroidStudioProjects/Webviewgeneral/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.2"
+        sha1="94bc1dfb84dcc8b6f6f8f7cc726d7b2dd39c1574">
+        <dex dex="/Users/lorin/AndroidStudioProjects/Webviewgeneral/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-animated-vector-drawable-24.2.1_6e1b623bb9a2dc3b25fbe5af055f89ccc9411652/classes.dex" />
     </item>
     <item
         is-multidex="true"
         jar="/Users/lorin/AndroidStudioProjects/Webviewgeneral/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
         jumboMode="true"
         optimize="true"
-        revision="22.0.1"
-        sha1="145cab34ed274f777dc8ae018ff7ce4cbf080868">
+        revision="23.0.2"
+        sha1="b2b2ab8715d6f4d645503ba53f1207c0b6546394">
         <dex dex="/Users/lorin/AndroidStudioProjects/Webviewgeneral/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_c24e48e5bf79242172997a3a79f19f8e15fd0faa/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/lorin/AndroidStudioProjects/Webviewgeneral/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.2"
+        sha1="d5c731fc64c03dfe04d51134955b483551c35849">
+        <dex dex="/Users/lorin/AndroidStudioProjects/Webviewgeneral/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-vector-drawable-24.2.1_8e0277917c9d5551d9359c9df906fc4b00da3c64/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/lorin/AndroidStudioProjects/Webviewgeneral/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.2"
+        sha1="e7f3132168957eefc46229fc32c3bd464642b71e">
+        <dex dex="/Users/lorin/AndroidStudioProjects/Webviewgeneral/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-core-ui-24.2.1_483274c052e86eac46e15b806886b54005efed6b/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/lorin/AndroidStudioProjects/Webviewgeneral/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.2"
+        sha1="09b462bbcb77650284bd6614f1a32f360ef369f8">
+        <dex dex="/Users/lorin/AndroidStudioProjects/Webviewgeneral/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-media-compat-24.2.1_819b6759ab4378559c75a4f056974d751b77b9c0/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/lorin/AndroidStudioProjects/Webviewgeneral/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/24.2.1/jars/libs/internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.2"
+        sha1="867dad63c33388ff8c7644b236579355036d075f">
+        <dex dex="/Users/lorin/AndroidStudioProjects/Webviewgeneral/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-24.2.1_46785a72bb2cfabfd72d055e3461754bb2993acc/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/lorin/AndroidStudioProjects/Webviewgeneral/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/24.2.1/jars/libs/internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.2"
+        sha1="fbf8da429efd5ad21e02e3e5ecaa1efc4167878d">
+        <dex dex="/Users/lorin/AndroidStudioProjects/Webviewgeneral/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-24.2.1_3e4b7dc82f4db071dc84b3a48126949f03dff5f8/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/lorin/AndroidStudioProjects/Webviewgeneral/app/build/intermediates/exploded-aar/com.android.support/support-compat/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.2"
+        sha1="0ecb4b595fa0f0f8018a149ace3ea6525624f94e">
+        <dex dex="/Users/lorin/AndroidStudioProjects/Webviewgeneral/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-compat-24.2.1_bcae871d4bbb400bb6ec273fd1e8e7e054659359/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/lorin/AndroidStudioProjects/Webviewgeneral/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.2"
+        sha1="9c4c3bc902450c39ed54de170db4fb12aea20a35">
+        <dex dex="/Users/lorin/AndroidStudioProjects/Webviewgeneral/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-core-utils-24.2.1_4bfb316b78c4d3d0984a0015e2bccd09690ee9f9/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/lorin/AndroidStudioProjects/Webviewgeneral/app/build/intermediates/exploded-aar/com.android.support/support-fragment/24.2.1/jars/libs/internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.2"
+        sha1="5f64d657e838e8375135c0f6057a7ff8fab6a50e">
+        <dex dex="/Users/lorin/AndroidStudioProjects/Webviewgeneral/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-24.2.1_f161a59c40f8845f67901bb16b12d2e92bd3641d/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/lorin/AndroidStudioProjects/Webviewgeneral/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/24.2.1/jars/libs/internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.2"
+        sha1="935a969265b2a166b2d20415423f5f6e90fe16e0">
+        <dex dex="/Users/lorin/AndroidStudioProjects/Webviewgeneral/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-24.2.1_cc459ec55baf29da652a9e2127dfd3f03bb66a70/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/lorin/AndroidStudioProjects/Webviewgeneral/app/build/intermediates/exploded-aar/com.android.support/support-compat/24.2.1/jars/libs/internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.2"
+        sha1="7e4389bd133359a2ff88623ff1e4ff93d6e6f780">
+        <dex dex="/Users/lorin/AndroidStudioProjects/Webviewgeneral/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-24.2.1_1ebae1a572786ad1763175550cc07e3a7bc184c6/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/lorin/AndroidStudioProjects/Webviewgeneral/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.2"
+        sha1="43b2dba6b5a0b14527961b75329d0b90025f15ea">
+        <dex dex="/Users/lorin/AndroidStudioProjects/Webviewgeneral/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-24.2.1_551edc2bc64b033c7d0a3b75d968dfe4a9389040/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/lorin/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/24.2.1/support-annotations-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.2"
+        sha1="8de3aafecbdf98a61db6427f008f2d515bcd2544">
+        <dex dex="/Users/lorin/AndroidStudioProjects/Webviewgeneral/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-24.2.1_5d5c2a33951ce962a4404174d663b63e7896b98b/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/lorin/AndroidStudioProjects/Webviewgeneral/app/build/intermediates/exploded-aar/com.android.support/support-fragment/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.2"
+        sha1="b9a1ac78ad7ef3abedc4a4b30cd92bcacb939d1f">
+        <dex dex="/Users/lorin/AndroidStudioProjects/Webviewgeneral/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-fragment-24.2.1_31d333588d1ae1c12483d60f64a279001cb6950a/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/lorin/AndroidStudioProjects/Webviewgeneral/app/build/intermediates/exploded-aar/com.android.support/support-v4/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.2"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="/Users/lorin/AndroidStudioProjects/Webviewgeneral/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v4-24.2.1_b3a60089a1ddb19868cdff66a978f59da09a6b3d/classes.dex" />
     </item>
 
 </items>

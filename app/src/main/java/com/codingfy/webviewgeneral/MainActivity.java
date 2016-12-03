@@ -1,13 +1,12 @@
 package com.codingfy.webviewgeneral;
 
-import android.app.ProgressDialog;
-import android.content.BroadcastReceiver;
+
 import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.Point;
+import android.media.MediaPlayer;
+import android.os.AsyncTask;
 import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,18 +16,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.DecelerateInterpolator;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
-
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.util.AbstractMap;
-import java.util.List;
+import android.widget.RelativeLayout;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,12 +39,13 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout loadingScreen;
     private LinearLayout splashScreen;
     private LinearLayout networkError;
+    private RelativeLayout webViewRelativeLayout;
+    private Button retryConnecting;
+    private ImageView goHomeButton;
+    private ImageView logo;
+    private boolean keepFading = false;
+    private String lastLink;
 
-    /* for GCM, not used
-    private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
-    private static final String TAG = "MainActivity";
-    private BroadcastReceiver mRegistrationBroadcastReceiver;
-    */
 
     /*Variables to detect left, right scroll (go back and go forward */
     private int min_distance = 100;
@@ -53,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
     /*This is used so that the loading layout doesn't get on top of the splash screen
     when the app starts */
     boolean firstLoad = true;
-    //int loadingCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,32 +67,36 @@ public class MainActivity extends AppCompatActivity {
         networkError = (LinearLayout) findViewById(R.id.networkerror);
         loadingScreen = (LinearLayout) findViewById(R.id.showLoadingScreen);
         splashScreen = (LinearLayout) findViewById(R.id.splashScreen);
+        webViewRelativeLayout = (RelativeLayout) findViewById(R.id.webviewRelativeLayout);
+        retryConnecting = (Button)findViewById(R.id.retryConnecting);
+        goHomeButton = (ImageView) findViewById(R.id.goHomeButton);
+        logo = (ImageView) findViewById(R.id.logo);
 
-        splashScreen.setVisibility(View.VISIBLE);
 
-
-        /*
-            linkToGoTo can be used to either:
-                - get an intent with a link (e.g you click on a link
-                    from an email and it'll tell the webview to go to that link
-                - save the link in shouldOverrideUrlLoading(), so that when the user
-                    tries to reload, it reloads the same link instead of the homepage
-             CURRENTLY NOT USED
-         */
-        String linkToGoTo;
-        Bundle extras = getIntent().getExtras();
-        if(extras == null) {
-            linkToGoTo= "noLink";
-        } else {
-            linkToGoTo= extras.getString("goTo");
-        }
+        goHomeButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                goHome(v);
+            }
+        });
 
 
 
         myWebView = (WebView) findViewById(R.id.webview);
+        myWebView.setVisibility(View.VISIBLE);
+        webViewRelativeLayout.setVisibility(View.VISIBLE);
+
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                hideWebDisplaySplash();
+            }
+        }, 200);
+
+
         WebSettings webSettings = myWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
-        //Registering JS callback here.
         myWebView.addJavascriptInterface(new WebAppInterface(this), "Android");
 
         //To fix layout issues.
@@ -105,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
             myWebView.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
-                    switch(event.getAction()) { // Check vertical and horizontal touches
+                    switch(event.getAction()) {
                         case MotionEvent.ACTION_DOWN: {
                             downX = event.getX();
                             downY = event.getY();
@@ -131,14 +135,14 @@ public class MainActivity extends AppCompatActivity {
                                         if (deltaX < 0) {
                                             if(myWebView.canGoBack()){
                                                 myWebView.goBack();
-                                                Toast.makeText(getApplicationContext(), getResources().getString(R.string.loading_previous), Toast.LENGTH_SHORT).show();
+                                                //Toast.makeText(getApplicationContext(), getResources().getString(R.string.loading_previous), Toast.LENGTH_SHORT).show();
                                             }
                                             return true;
                                         }
                                         if (deltaX > 0) {
                                             if(myWebView.canGoForward()){
                                                 myWebView.goForward();
-                                                Toast.makeText(getApplicationContext(), getResources().getString(R.string.loading_next), Toast.LENGTH_SHORT).show();
+                                                //Toast.makeText(getApplicationContext(), getResources().getString(R.string.loading_next), Toast.LENGTH_SHORT).show();
                                             }
                                             return true;
                                         }
@@ -147,26 +151,6 @@ public class MainActivity extends AppCompatActivity {
                                         return false;
                                     }
                                 }
-                                //VERTICAL SCROLL
-                            /*
-                            else {
-                                if (Math.abs(deltaY) > min_distance) {
-                                    // top or down
-                                    if (deltaY < 0) {
-                                        Log.d("going", "top to bottom");
-                                        return false;
-                                    }
-                                    if (deltaY > 0) {
-                                        Log.d("going", "bottom to top");
-
-                                        return true;
-                                    }
-                                } else {
-                                    //not long enough swipe...
-                                    return false;
-                                }
-                            }
-                            */
                                 return false;
                             }
                         }
@@ -176,19 +160,29 @@ public class MainActivity extends AppCompatActivity {
             });
         }
 
+
+        myWebView.setBackgroundColor(Color.BLACK);
+
         myWebView.setWebViewClient(new WebViewClient(){
             boolean ignoreDoneOnce = false;
 
-            //This will be called each time a new link is tapped on.
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                view.loadUrl(url + "?inapp=true");
+                view.loadUrl(url);
+
+                if(!url.contains("alpha.secretrepublic.net")){
+                   goHomeButton.setVisibility(View.VISIBLE);
+                } else {
+                    goHomeButton.setVisibility(View.GONE);
+                    lastLink = url;
+                }
+
 
                 if(firstLoad){
-                    myWebView.setVisibility(View.GONE);
-                }
-                else if(getResources().getString(R.string.loading_screen_enabled).equals("y")){
-                    myWebView.setVisibility(View.GONE);
-                    loadingScreen.setVisibility(View.VISIBLE);
+                    webViewRelativeLayout.setVisibility(View.GONE);
+                } else if(getResources().getString(R.string.loading_screen_enabled).equals("y")){
+                    hideWebDisplayLoad();
+                    keepFading = true;
+                    fadeOutCall(logo);
                 }
                 return true;
             }
@@ -200,28 +194,28 @@ public class MainActivity extends AppCompatActivity {
 
                 if(ignoreDoneOnce){
                     ignoreDoneOnce = false;
-                }
-                else {
+                } else {
                     view.clearCache(true);
 
                     if(firstLoad){
+                        firstLoad = false;
+                        final WebView localView = view;
                         final Handler handler = new Handler();
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                firstLoad = false;
-                                splashScreen.setVisibility(View.GONE);
-                                myWebView.setVisibility(View.VISIBLE);
-                            }
-                        }, 300);
-                    } else if(getResources().getString(R.string.loading_screen_enabled).equals("y")) {
-                        myWebView.setVisibility(View.VISIBLE);
-                        loadingScreen.setVisibility(View.GONE);
+                                hideSplahDisplayWeb();
+                                localView.loadUrl("javascript:loadedFromApp()");
 
+                            }
+                        }, 0);
+                    } else if(getResources().getString(R.string.loading_screen_enabled).equals("y")) {
+                        hideLoadDisplayWeb();
+                        keepFading = false;
+                        view.loadUrl("javascript:loadedFromApp()");
                     }
                     networkError.setVisibility(View.GONE);
                 }
-
             }
 
 
@@ -229,131 +223,86 @@ public class MainActivity extends AppCompatActivity {
             public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
                 ignoreDoneOnce=true;
 
-                Log.d("errorcode", String.valueOf(errorCode));
-                Log.d("ERROR", description);
                 Log.d("failing url", failingUrl);
-
-                myWebView.setVisibility(View.GONE);
-                splashScreen.setVisibility(View.GONE);
-                networkError.setVisibility(View.VISIBLE);
-
-                System.out.println("RECEIVED ERROR");
-
+                hideEverythingAndShowError();
             }
         });
 
-        if (linkToGoTo != null) {
-            if(!linkToGoTo.equals("noLink")){
-                //myWebView.loadUrl(linkToGoTo);
-                linkToGoTo = "noLink";
-            }
-            else {
-                //myWebView.loadUrl("http://secretrepublic.net/");
-            }
-        }
-        else {
-            //
-            // myWebView.loadUrl("http://secretrepublic.net/");
-        }
 
         myWebView.loadUrl(getResources().getString(R.string.url));
-
-        Button retryConnecting = (Button)findViewById(R.id.retryConnecting);
-
         retryConnecting.setOnClickListener( new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
-
-                myWebView.loadUrl(getResources().getString(R.string.url));
-            }
-
-
-        });
-
-
-        /*
-        //GCM, not usd
-        mRegistrationBroadcastReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                //mRegistrationProgressBar.setVisibility(ProgressBar.GONE);
-                SharedPreferences sharedPreferences =
-                        PreferenceManager.getDefaultSharedPreferences(context);
-                boolean sentToken = sharedPreferences
-                        .getBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER, false);
-                if (sentToken) {
-                    //mInformationTextView.setText(getString(R.string.gcm_send_message));
-                    //hasToken = true;
-                    //selectItem(0);
-
+                if(lastLink.length()!=0){
+                    myWebView.loadUrl(lastLink);
                 } else {
-                    Log.d("FAILURE", "failed to set token");
-                    //mInformationTextView.setText(getString(R.string.token_error_message));
+                    myWebView.loadUrl(getResources().getString(R.string.url));
                 }
             }
-        };
-
-        if (checkPlayServices()) {
-            // Start IntentService to register this application with GCM.
-            Intent intent = new Intent(this, RegistrationIntentService.class);
-            startService(intent);
-            Log.d("action", "starting intent to register token");
-        }
-        //GCM end
-
-
-        String theToken = PreferenceManager.getDefaultSharedPreferences(MainActivity.theInstance).getString("theToken", "defaultStringIfNothingFound");
-
-        if(!theToken.equals("defaultStringIfNothingFound")){
-            boolean subscribedEverything = PreferenceManager.getDefaultSharedPreferences(theInstance).getBoolean("subscribedEverything", false);
-            if(!subscribedEverything){
-                //new subscribeToEverything().execute("");
-            }
-        }
-       */
-
+        });
     }
 
 
-
-
-    /**
-     * Check the device to make sure it has the Google Play Services APK. If
-     * it doesn't, display a dialog that allows users to download the APK from
-     * the Google Play Store or enable it in the device's system settings.
-     */
-    /* For GCM, not used now.
-    private boolean checkPlayServices() {
-        GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
-        int resultCode = apiAvailability.isGooglePlayServicesAvailable(this);
-        if (resultCode != ConnectionResult.SUCCESS) {
-            if (apiAvailability.isUserResolvableError(resultCode)) {
-                apiAvailability.getErrorDialog(this, resultCode, PLAY_SERVICES_RESOLUTION_REQUEST)
-                        .show();
-            } else {
-                Log.i(TAG, "This device is not supported.");
-                finish();
-            }
-            return false;
-        }
-        Log.d(TAG, "Device supported");
-        return true;
-    }
-    */
 
 
     public void goHome(View v){
-        myWebView.loadUrl(getResources().getString(R.string.url));
-
+        myWebView.loadUrl(lastLink);
+        goHomeButton.setVisibility(View.GONE);
     }
+
+    public void hideLoadDisplayWeb(){
+        loadingScreen.setVisibility(View.GONE);
+        webViewRelativeLayout.setVisibility(View.VISIBLE);
+    }
+
+    public void hideSplahDisplayWeb(){
+        splashScreen.setVisibility(View.GONE);
+        webViewRelativeLayout.setVisibility(View.VISIBLE);
+    }
+
+    public void hideBothDisplayWeb(){
+        splashScreen.setVisibility(View.GONE);
+        loadingScreen.setVisibility(View.GONE);
+        webViewRelativeLayout.setVisibility(View.VISIBLE);
+    }
+
+    public void hideWebDisplaySplash(){
+        webViewRelativeLayout.setVisibility(View.GONE);
+        splashScreen.setVisibility(View.VISIBLE);
+    }
+
+    public void hideWebDisplayLoad(){
+        webViewRelativeLayout.setVisibility(View.GONE);
+        loadingScreen.setVisibility(View.VISIBLE);
+    }
+
+    public void hideEverythingAndShowError(){
+        loadingScreen.setVisibility(View.GONE);
+        splashScreen.setVisibility(View.GONE);
+        webViewRelativeLayout.setVisibility(View.GONE);
+        networkError.setVisibility(View.VISIBLE);
+    }
+
+
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         // Check if the key event was the Back button and if there's history
         if ((keyCode == KeyEvent.KEYCODE_BACK) && myWebView.canGoBack()) {
             myWebView.goBack();
+
+
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if((myWebView.getUrl().contains("alpha.secretrepublic.net"))){
+                        goHomeButton.setVisibility(View.GONE);
+                    }
+                }
+            }, 1000);
+
+
             return true;
         }
         // If it wasn't the Back key or there's no web page history, bubble up to the default
@@ -379,31 +328,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    /*Use this to construct a http request, if communicating to an API for example*/
-    public String getQuery(List<AbstractMap.SimpleEntry> params) throws UnsupportedEncodingException
-    {
-        StringBuilder result = new StringBuilder();
-        boolean first = true;
-
-        for (AbstractMap.SimpleEntry pair : params)
-        {
-            if (first)
-                first = false;
-            else
-                result.append("&");
-
-            //Log.d("sending key", pair.getKey().toString());
-            //Log.d("sending value", pair.getValue().toString());
-            result.append(URLEncoder.encode(pair.getKey().toString(), "UTF-8"));
-            result.append("=");
-            result.append(URLEncoder.encode(pair.getValue().toString(), "UTF-8"));
-        }
-
-        return result.toString();
-    }
-
-
-
     //The JS handler
     public class WebAppInterface {
         Context mContext;
@@ -415,8 +339,72 @@ public class MainActivity extends AppCompatActivity {
 
         /** Show a toast from the web page */
         @JavascriptInterface
-        public void showToast(String toast) {
-            Toast.makeText(mContext, toast, Toast.LENGTH_SHORT).show();
+        public void playSound(String soundName) {
+            new BackgroundSound().execute(soundName);
+        }
+    }
+
+
+    private void fadeInCall(final ImageView img)
+    {
+        Animation fadeIn = new AlphaAnimation(0, 1);
+        fadeIn.setInterpolator(new DecelerateInterpolator());
+        fadeIn.setDuration(500);
+
+        AnimationSet animation = new AnimationSet(false);
+        animation.addAnimation(fadeIn);
+
+
+        fadeIn.setAnimationListener(new Animation.AnimationListener()
+        {
+            public void onAnimationEnd(Animation animation)
+            {
+               if(keepFading){
+                   fadeOutCall(img);
+               }
+            }
+            public void onAnimationRepeat(Animation animation) {}
+            public void onAnimationStart(Animation animation) {}
+        });
+
+        img.startAnimation(fadeIn);
+    }
+
+
+    private void fadeOutCall(final ImageView img)
+    {
+        Animation fadeOut = new AlphaAnimation(1, 0);
+        fadeOut.setInterpolator(new AccelerateInterpolator()); //and this
+        fadeOut.setDuration(500);
+
+        AnimationSet animation = new AnimationSet(false); //change to false
+        animation.addAnimation(fadeOut);
+
+
+        fadeOut.setAnimationListener(new Animation.AnimationListener()
+        {
+            public void onAnimationEnd(Animation animation)
+            {
+                fadeInCall(img);
+            }
+            public void onAnimationRepeat(Animation animation) {}
+            public void onAnimationStart(Animation animation) {}
+        });
+
+        img.startAnimation(fadeOut);
+    }
+
+
+    public class BackgroundSound extends AsyncTask<String, Void, Void> {
+        @Override
+        protected Void doInBackground(String... params) {
+            MediaPlayer player = MediaPlayer.create(theInstance, getResources().getIdentifier(params[0],
+                    "raw", getPackageName()));
+            player.setLooping(true); // Set looping
+            player.setVolume(100,100);
+            player.start();
+            player.setLooping(false);
+            return null;
         }
     }
 

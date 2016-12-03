@@ -3,9 +3,8 @@
 
 
 
-    <string name="network_error_text">Ne pare rau, dar a avut loc o eroare de retea :-(\n\nVa rugam
-        sa verificati conexiunea la internet si mai apoi sa apasati pe butonul de mai jos, sau
-    sa inchideti si sa redeschideti aplicatia</string>
+    <string name="network_error_text">We are sorry but we cannot reach our servers.</string>
+    <string name="retry_button">Retry</string>
     <string name="loading_screen"> Please wait, loading your app </string>
     <string name="url">http://alpha.secretrepublic.net</string>
     <string name="left_right_nav_enabled">y</string>

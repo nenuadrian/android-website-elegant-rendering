@@ -1,4 +1,4 @@
-#Thu Nov 24 22:33:05 GMT 2016
+#Wed Nov 30 00:24:40 GMT 2016
 base.0=/Users/lorin/AndroidStudioProjects/Webviewgeneral/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_96b00eb2534ad6939b9b56cb8ae3885684b677a1
 renamed.1=classes2.dex
 renamed.0=classes.dex

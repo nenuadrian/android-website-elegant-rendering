@@ -8,65 +8,72 @@
     tools:context="com.codingfy.webviewgeneral.MainActivity">
 
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
-        android:background="#070707">
+        android:layout_height="match_parent"
+        android:id="@+id/webviewRelativeLayout">
+
+        <WebView  xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/webview"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="#ff000000"
+            />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/ic_home_white_48dp"
-            android:onClick="goHome"/>
+            android:src="@mipmap/logo"
+            android:visibility="gone"
+            android:id="@+id/goHomeButton"
+            android:layout_alignParentBottom="true"/>
 
 
-    </LinearLayout>
+    </RelativeLayout>
 
-
-
-    <WebView  xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/webview"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:visibility="gone"
-        />
-
-
-
-
-    <!--<android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignBottom="@id/webview"
-        android:layout_marginBottom="5dp"
-        android:layout_marginRight="20dp"
-        android:src="@drawable/" />-->
 
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginTop="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginBottom="0dp"
         android:id="@+id/showLoadingScreen"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="gone"
+        android:gravity="center"
+        android:background="#ff000000"
+        >
 
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/loading_screen"
-            />
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
 
+            >
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@mipmap/bg"
+                android:scaleType="fitXY"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                >
+            </ImageView>
+            <ImageView
+                android:id="@+id/logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/logo"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                >
+            </ImageView>
+        </RelativeLayout>
 
     </LinearLayout>
-
 
 
 
@@ -80,7 +87,8 @@
         android:id="@+id/networkerror"
         android:orientation="vertical"
         android:visibility="gone"
-        android:gravity="center">
+        android:gravity="center"
+        >
 
 
         <TextView
@@ -93,7 +101,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Reincercati"
+            android:text="@string/retry_button"
             android:id="@+id/retryConnecting"
             android:layout_marginTop="15dp"/>
 
@@ -102,32 +110,44 @@
 
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginTop="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginBottom="0dp"
         android:id="@+id/splashScreen"
         android:orientation="vertical"
         android:visibility="gone"
         android:gravity="center">
 
 
-       <ImageView
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:src="@mipmap/freepik"/>
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
 
-
-        <TextView
+            >
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@mipmap/bg"
+            android:scaleType="fitXY"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            >
+        </ImageView>
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/loading_splash_text"
-            android:layout_gravity="center"
-            android:layout_marginTop="100dp"/>
-
+            android:src="@mipmap/logo"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            >
+            </ImageView>
+    </RelativeLayout>
 
     </LinearLayout>
+
+
 
 </LinearLayout>
